@@ -28,7 +28,7 @@ logScope:
 export transport, websock, results
 
 const
-  DefaultHeadersTimeout = 3.seconds
+  DefaultHeadersTimeout = 1.seconds
   DefaultAutotlsWaitTimeout = 3.seconds
   DefaultAutotlsRetries = 3
 
