@@ -107,7 +107,7 @@ suite "RendezVous Errors":
 
       let
         responseBuf = await sendRdvMessage(peerNode, rendezvousNode, messageBuf)
-        responseMessage = decodeMessage(responseBuf).tryGet()
+        responseMessage = Message.decode(responseBuf).tryGet()
         actualStatus =
           if responseMessage.registerResponse.isSome():
             responseMessage.registerResponse.get.status
@@ -136,5 +136,5 @@ suite "RendezVous Errors":
     )
 
     let responseBuf = await sendRdvMessage(peerNodes[0], rendezvousNode, messageBuf)
-    let responseMessage = decodeMessage(responseBuf).tryGet()
+    let responseMessage = Message.decode(responseBuf).tryGet()
     check responseMessage.registerResponse.get.status == ResponseStatus.NotAuthorized
