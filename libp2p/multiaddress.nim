@@ -5,7 +5,7 @@
 
 {.push raises: [].}
 
-import pkg/[chronos, chronicles, results]
+import pkg/[chronos, chronicles, results, protobuf_serialization]
 import std/[nativesockets, net, hashes]
 import tables, strutils, sets
 import
@@ -1170,6 +1170,33 @@ proc getRepeatedField*(
       err(ProtoError.IncorrectBlob)
     else:
       ok(true)
+
+func supportsPacked*(T: type MultiAddress, ProtoType: type ProtobufExt): bool =
+  false
+func supportsPacked*(T: type seq[MultiAddress], ProtoType: type ProtobufExt): bool =
+  false
+
+func computeFieldSize*(
+    field: int, value: MultiAddress, ProtoType: type ProtobufExt, skipDefault: static bool
+): int =
+  discard
+
+proc writeField*(
+    stream: OutputStream,
+    field: int,
+    value: MultiAddress,
+    ProtoType: type ProtobufExt,
+    skipDefault: static bool = false,
+) {.raises: [IOError].} =
+  discard
+
+proc readFieldInto*(
+    stream: InputStream,
+    value: var MultiAddress,
+    header: FieldHeader,
+    ProtoType: type ProtobufExt,
+): bool {.raises: [SerializationError, IOError].} =
+  discard
 
 proc areAddrsConsistent*(a, b: MultiAddress): bool =
   ## Checks if two multiaddresses have the same protocol stack.
